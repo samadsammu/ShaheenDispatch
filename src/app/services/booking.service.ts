@@ -34,13 +34,14 @@ export class BookingService {
         return newOrder;
     }
 
-    updateOrderStatus(orderId: string, status: OrderStatus, driverId?: string, driverName?: string) {
+    updateOrderStatus(orderId: string, status: OrderStatus, driverId?: string, driverName?: string, driverPhone?: string) {
         const order = this.storage.getOrderById(orderId);
         if (order) {
             order.status = status;
             order.updatedAt = Date.now();
             if (driverId) order.driverId = driverId;
             if (driverName) order.driverName = driverName;
+            if (driverPhone) order.driverPhone = driverPhone;
             this.storage.saveOrder(order);
         }
     }

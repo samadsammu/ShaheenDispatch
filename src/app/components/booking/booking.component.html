@@ -1,30 +1,5 @@
 <div class="booking-container py-8">
     <div class="container">
-        <!-- Stepper Header -->
-        <div class="stepper-header">
-            <div class="stepper-progress" [style.width.%]="(currentStep - 1) * 50"></div>
-
-            <div class="step-item" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
-                <div class="step-circle">
-                    <span *ngIf="currentStep <= 1">1</span>
-                    <span *ngIf="currentStep > 1" class="material-icons-outlined">check</span>
-                </div>
-                <span class="step-label">Route</span>
-            </div>
-
-            <div class="step-item" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
-                <div class="step-circle">
-                    <span *ngIf="currentStep <= 2">2</span>
-                    <span *ngIf="currentStep > 2" class="material-icons-outlined">check</span>
-                </div>
-                <span class="step-label">Details</span>
-            </div>
-
-            <div class="step-item" [class.active]="currentStep === 3">
-                <div class="step-circle">3</div>
-                <span class="step-label">Vehicle</span>
-            </div>
-        </div>
 
         <div class="grid lg-grid-cols-3 gap-8">
 
@@ -97,8 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="nav-buttons">
-                            <div></div>
+                        <div class="nav-buttons justify-end">
                             <button [disabled]="!pickup || !drop" (click)="nextStep()" class="btn btn-primary px-8">
                                 Contact Details <span class="material-icons-outlined ml-2">arrow_forward</span>
                             </button>
@@ -178,15 +152,21 @@
 
                         <div class="vehicle-grid">
                             <div *ngFor="let v of vehicles" (click)="selectVehicle(v)"
-                                [class.selected]="selectedVehicle?.type === v.type" class="vehicle-card card clickable">
+                                [class.selected]="selectedVehicle?.type === v.type"
+                                class="vehicle-card card clickable p-6 flex items-center justify-between">
                                 <div class="flex items-center gap-4">
                                     <div class="vehicle-icon-box">
-                                        <span class="material-icons-outlined">{{v.icon}}</span>
+                                        <span class="material-icons-outlined text-2xl">{{v.icon}}</span>
                                     </div>
                                     <div>
                                         <h3 class="font-bold text-gray-900">{{v.name}}</h3>
-                                        <p class="text-xs text-gray-500">{{v.capacity}}</p>
+                                        <p class="text-xs text-gray-400 font-medium">{{v.capacity}}</p>
                                     </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-400 uppercase font-bold tracking-wider">Fare</p>
+                                    <p class="text-xl font-black text-primary">₹{{getVehiclePrice(v.type) |
+                                        number:'1.0-0'}}</p>
                                 </div>
                                 <div *ngIf="selectedVehicle?.type === v.type" class="check-icon">
                                     <span class="material-icons-outlined text-primary">check_circle</span>

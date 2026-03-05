@@ -1,209 +1,271 @@
-<div class="driver-container">
-    <div class="container max-w-5xl px-6">
+<div class="driver-dashboard-container py-8">
+    <div class="container max-w-6xl px-6">
 
-        <!-- Header -->
-        <header class="mb-12 flex justify-between items-center">
+        <!-- SECTION 1: DRIVER HEADER -->
+        <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
                 <div class="flex items-center gap-2 mb-2">
-                    <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="status-indicator-dot"></span>
                     <span class="text-xs font-black text-green-600 uppercase tracking-widest">System Online</span>
                 </div>
-                <h1 class="text-4xl font-black text-gray-900 tracking-tighter">Driver Dashboard</h1>
-                <p class="text-gray-500 mt-2 font-medium text-lg">Your fleet command center</p>
+                <h1 class="text-3xl font-black text-gray-900 tracking-tight">Driver Dashboard</h1>
             </div>
 
-            <div class="card-premium glass-light p-4 flex items-center gap-4" style="width: auto;">
-                <div class="insight-icon-box bg-primary text-white" style="margin-bottom: 0;">
-                    <span class="material-icons-outlined">local_shipping</span>
+            <div class="header-vehicle-card card px-6 py-4 flex items-center gap-4">
+                <div class="vehicle-icon-box-sm bg-primary-light text-primary">
+                    <span class="material-icons-outlined text-xl">local_shipping</span>
                 </div>
                 <div>
-                    <p class="text-xs font-black text-gray-400 uppercase tracking-widest" style="margin-bottom: 2px;">
-                        Active Vehicle</p>
-                    <p class="text-xl font-black text-gray-900 tracking-tight">{{driver?.vehicleType}}</p>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Active
+                        Vehicle</p>
+                    <p class="text-lg font-black text-gray-900 leading-none">{{driver?.vehicleType}}</p>
                 </div>
             </div>
         </header>
 
-        <!-- Insights Grid -->
-        <div class="grid md-grid-cols-2 lg-grid-cols-3 gap-6 mb-16">
-            <div class="card-premium insight-card insight-theme-earnings">
-                <div>
-                    <p class="text-xs font-bold opacity-70 uppercase tracking-widest">Today's Earnings</p>
-                    <h3 class="text-4xl font-black mt-2 tracking-tighter italic">₹{{stats?.todayEarnings |
-                        number:'1.0-0'}}</h3>
-                </div>
-                <div class="mt-8 flex items-center gap-3 py-2 px-3 bg-white/10 rounded-xl" style="width: fit-content;">
-                    <span class="material-icons-outlined text-green-400 text-sm">auto_graph</span>
-                    <span class="text-xs font-black uppercase tracking-wider">Top 5% Today</span>
-                </div>
-            </div>
-
-            <div class="card-premium insight-card insight-theme-payout">
-                <div class="insight-icon-box">
-                    <span class="material-icons-outlined">account_balance_wallet</span>
-                </div>
-                <div>
-                    <p class="text-xs font-bold opacity-70 uppercase tracking-widest">Total Payout</p>
-                    <h3 class="text-3xl font-black mt-1">₹{{stats?.totalEarnings | number:'1.0-0'}}</h3>
+        <!-- SECTION 2: STATISTICS CARDS -->
+        <div class="grid md-grid-cols-3 gap-6 mb-8">
+            <!-- Earnings -->
+            <div class="card stat-card accent-border p-6 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="stat-icon bg-gray-50 text-gray-400">
+                        <span class="material-icons-outlined">payments</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Today's Earnings</p>
+                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">₹{{stats?.todayEarnings |
+                            number:'1.0-0'}}</h3>
+                    </div>
                 </div>
             </div>
 
-            <div class="card-premium insight-card insight-theme-performance">
-                <div class="insight-icon-box">
-                    <span class="material-icons-outlined">verified</span>
+            <!-- Payout -->
+            <div class="card stat-card accent-border p-6 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="stat-icon bg-gray-50 text-gray-400">
+                        <span class="material-icons-outlined">account_balance_wallet</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Payout</p>
+                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">₹{{stats?.totalEarnings |
+                            number:'1.0-0'}}</h3>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-xs font-bold opacity-70 uppercase tracking-widest">Successful Trips</p>
-                    <h3 class="text-3xl font-black mt-1">{{stats?.completedOrders}} Cases</h3>
+            </div>
+
+            <!-- Successful Trips -->
+            <div class="card stat-card accent-border p-6 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="stat-icon bg-gray-50 text-gray-400">
+                        <span class="material-icons-outlined">verified</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Successful Trips</p>
+                        <h3 class="text-3xl font-black text-gray-900 tracking-tight">{{stats?.completedOrders}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Active Order Section -->
-        <div *ngIf="activeOrder" class="mb-16">
-            <h2 class="text-2xl font-black text-gray-900 mb-8 tracking-tight flex items-center gap-3">
-                <div class="w-1 h-8 bg-primary" style="border-radius: 4px;"></div>
-                Current Assignment
-            </h2>
+        <!-- NEW SECTION: DRIVER INFO CARDS -->
+        <div class="flex flex-wrap gap-4 mb-12">
+            <div class="flex-1 min-w-[280px] card card-flex p-5 flex items-center gap-4 border-l-4 border-l-blue-500">
+                <div class="h-12 w-12 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center">
+                    <span class="material-icons-outlined">account_circle</span>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Driver Profile</p>
+                    <p class="text-base font-black text-gray-900">{{driver?.name}}</p>
+                    <p class="text-xs font-medium text-gray-500">{{driver?.phone}}</p>
+                </div>
+            </div>
 
-            <div class="active-assignment-ticker card-premium shadow-lg">
-                <div class="grid md-grid-cols-12">
-                    <!-- Order Details -->
-                    <div class="md-col-span-8 p-10">
-                        <div class="mb-10">
-                            <span
-                                class="text-xs font-black text-gray-500 uppercase tracking-widest block mb-1">Assignment
-                                ID</span>
-                            <h3 class="text-3xl font-black text-white tracking-widest italic uppercase">
-                                #{{activeOrder.id}}</h3>
-                        </div>
+            <div class="flex-1 min-w-[280px] card card-flex p-5 flex items-center gap-4 border-l-4 border-l-orange-500">
+                <div class="h-12 w-12 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center">
+                    <span class="material-icons-outlined">commute</span>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Vehicle Registration</p>
+                    <p class="text-base font-black text-gray-900">{{driver?.vehicleType}}</p>
+                    <p class="text-xs font-medium text-green-600 font-bold uppercase tracking-tight">Verified Unit</p>
+                </div>
+            </div>
 
-                        <div class="grid md-grid-cols-2 gap-12" style="position: relative;">
-                            <!-- Vertical Route Line -->
-                            <div class="status-step-line"
-                                style="position: absolute; left: 6px; top: 24px; bottom: 24px; opacity: 0.3;"></div>
-
-                            <div style="position: relative; padding-left: 2rem;">
-                                <div class="bg-primary"
-                                    style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 15px var(--primary);">
-                                </div>
-                                <p class="text-xs font-black text-gray-500 uppercase tracking-widest mb-1">Pickup
-                                    Information</p>
-                                <p class="text-lg font-bold text-white leading-tight">{{activeOrder.pickup.address}}</p>
-                            </div>
-
-                            <div style="position: relative; padding-left: 2rem;">
-                                <div
-                                    style="position: absolute; left: 0; top: 6px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--primary); background: #0f172a;">
-                                </div>
-                                <p class="text-xs font-black text-gray-500 uppercase tracking-widest mb-1">Destination
-                                </p>
-                                <p class="text-lg font-bold text-white leading-tight">{{activeOrder.drop.address}}</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-12 pt-8 flex items-center gap-10"
-                            style="border-top: 1px solid rgba(255,255,255,0.1);">
-                            <div>
-                                <p class="text-xs font-black text-gray-500 uppercase tracking-widest mb-1">Settlement
-                                    Price</p>
-                                <p class="text-4xl font-black text-primary italic">₹{{activeOrder.price |
-                                    number:'1.2-2'}}</p>
-                            </div>
-                            <div class="divider-vertical" style="opacity: 0.2; background: white; height: 3rem;"></div>
-                            <div>
-                                <p class="text-xs font-black text-gray-500 uppercase tracking-widest mb-1">Trip distance
-                                </p>
-                                <p class="text-xl font-black text-white">{{activeOrder.distance | number:'1.1-1'}} <span
-                                        class="text-sm text-gray-500 uppercase">KM</span></p>
-                            </div>
-                        </div>
+            <div class="flex-1 min-w-[280px] card card-flex p-5 flex items-center gap-4 border-l-4 border-l-green-500">
+                <div class="h-12 w-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center">
+                    <span class="material-icons-outlined">security</span>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Safety Score</p>
+                    <div class="flex items-center gap-1">
+                        <span class="text-base font-black text-gray-900">4.9</span>
+                        <span class="material-icons-outlined text-xs text-yellow-500">star</span>
+                        <span class="text-[10px] text-gray-400 font-bold ml-1">Elite Level</span>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Action Sidebar -->
-                    <div class="md-col-span-4 p-10 flex flex-col justify-between"
-                        style="background: rgba(255,255,255,0.05); border-left: 1px solid rgba(255,255,255,0.1);">
-                        <div>
-                            <p class="text-center text-xs font-black text-gray-500 uppercase tracking-widest mb-4">
-                                Pipeline Status</p>
-                            <div class="py-3 px-4 bg-white rounded-2xl text-center mb-8">
-                                <p class="text-xl font-black text-gray-900 tracking-tight">{{activeOrder.status}}</p>
+        <!-- MAIN DASHBOARD GRID (2-Column) -->
+        <div class="dashboard-main-grid gap-8">
+
+            <!-- SECTION 3: DELIVERY REQUESTS (Left Column) -->
+            <div class="requests-column">
+                <h2 class="text-xl font-black text-gray-900 mb-6 tracking-tight">Nearby Delivery Requests</h2>
+
+                <!-- Active Order (Logic preserved) -->
+                <div *ngIf="activeOrder" class="mb-8">
+                    <div class="card active-order-card p-6 shadow-md border-primary border">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <span class="badge badge-primary mb-2">Active Assignment</span>
+                                <h3 class="text-xl font-black text-gray-900">ID: #{{activeOrder.id}}</h3>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Payout</p>
+                                <p class="text-2xl font-black text-primary">₹{{activeOrder.price | number:'1.2-2'}}</p>
                             </div>
                         </div>
 
-                        <div class="space-y-4">
+                        <!-- Route Details -->
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-3 w-3 rounded-full border-2 border-primary bg-white"></div>
+                                <div>
+                                    <p
+                                        class="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">
+                                        Pickup</p>
+                                    <p class="text-sm font-bold text-gray-900 leading-tight">
+                                        {{activeOrder.pickup.address}}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div
+                                    class="mt-1 h-3 w-3 rounded-full bg-primary shadow-[0_0_0_2px_rgba(229,57,53,0.2)]">
+                                </div>
+                                <div>
+                                    <p
+                                        class="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">
+                                        Dropoff</p>
+                                    <p class="text-sm font-bold text-gray-900 leading-tight">
+                                        {{activeOrder.drop.address}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEW: CONTACT DETAILS -->
+                        <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100 mb-8">
+                            <div class="contact-box p-3 rounded-xl bg-gray-50">
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Sender
+                                </p>
+                                <h4 class="text-sm font-black text-gray-900 mb-1 truncate">{{activeOrder.senderName}}
+                                </h4>
+                                <div class="flex items-center gap-1 text-primary">
+                                    <span class="material-icons-outlined text-xs">phone</span>
+                                    <span class="text-xs font-bold tracking-tight">{{activeOrder.senderPhone}}</span>
+                                </div>
+                            </div>
+                            <div class="contact-box p-3 rounded-xl bg-gray-50">
+                                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Receiver
+                                </p>
+                                <h4 class="text-sm font-black text-gray-900 mb-1 truncate">{{activeOrder.receiverName}}
+                                </h4>
+                                <div class="flex items-center gap-1 text-primary">
+                                    <span class="material-icons-outlined text-xs">phone</span>
+                                    <span class="text-xs font-bold tracking-tight">{{activeOrder.receiverPhone}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
                             <button *ngFor="let nextStatus of getAvailableStatuses()" (click)="updateStatus(nextStatus)"
-                                class="btn-update-status w-full py-4 rounded-2xl flex items-center justify-center gap-3 uppercase tracking-widest text-sm">
-                                <span class="material-icons-outlined text-sm">keyboard_double_arrow_right</span>
+                                class="btn btn-primary btn-sm flex-1 font-black uppercase tracking-widest py-3">
                                 {{nextStatus}}
                             </button>
                         </div>
-
-                        <p class="text-center text-xs text-gray-500 mt-6 font-bold uppercase tracking-widest">Update
-                            status after action</p>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Available Orders -->
-        <div *ngIf="!activeOrder">
-            <h2 class="text-2xl font-black text-gray-900 mb-8 tracking-tight flex items-center gap-3">
-                <div class="w-1 h-8 bg-blue-500" style="border-radius: 4px;"></div>
-                Nearby Dispatch List
-            </h2>
-
-            <div *ngIf="availableOrders.length === 0" class="card-premium text-center"
-                style="padding: 6rem 1rem; border-style: dashed; border-width: 2px; background: rgba(0,0,0,0.02);">
-                <div class="h-20 w-20 rounded-full bg-gray-50 flex items-center justify-center mb-6"
-                    style="margin: 0 auto 1.5rem auto;">
-                    <span class="material-icons-outlined text-4xl text-gray-300">radar</span>
-                </div>
-                <h3 class="text-xl font-black text-gray-900">Scanning for trips...</h3>
-                <p class="text-gray-400 font-medium mt-2">No available cases in your radius right now.</p>
-            </div>
-
-            <div class="flex flex-col gap-4">
-                <div *ngFor="let order of availableOrders" class="card-premium opp-card">
-                    <div class="h-16 w-16 rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400">
-                        <span class="material-icons-outlined">receipt_long</span>
-                    </div>
-
-                    <div style="flex: 1; min-width: 0;">
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="text-sm font-black text-gray-900 uppercase tracking-wider italic">ID:
-                                #{{order.id}}</span>
-                            <span class="badge badge-info text-xs tracking-widest">• {{order.distance | number:'1.1-1'}}
-                                km</span>
+                <!-- Available Orders List -->
+                <div *ngIf="!activeOrder" class="space-y-4">
+                    <!-- SECTION 4: EMPTY STATE -->
+                    <div *ngIf="availableOrders.length === 0" class="empty-requests-state card text-center p-12">
+                        <div class="radar-container mb-6">
+                            <div class="radar-pulse"></div>
+                            <span class="material-icons-outlined text-4xl text-gray-300">radar</span>
                         </div>
-                        <div class="flex items-center gap-4 text-gray-500 font-medium">
-                            <div class="flex items-center gap-2" style="max-width: 240px;">
-                                <span class="material-icons-outlined text-xs">adjust</span>
+                        <h3 class="text-xl font-black text-gray-900">Scanning for trips...</h3>
+                        <p class="text-gray-400 font-medium">No available cases in your radius right now.</p>
+                    </div>
+
+                    <div *ngFor="let order of availableOrders"
+                        class="card request-card p-6 shadow-sm hover:shadow-md transition-all group">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1 block">ID:
+                                    #{{order.id}}</span>
+                                <div class="flex items-center gap-2 text-primary font-black uppercase italic text-sm">
+                                    <span class="material-icons-outlined text-sm">insights</span>
+                                    <span>{{order.distance | number:'1.1-1'}} km</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Your Payout
+                                </p>
+                                <p class="text-2xl font-black text-gray-900">₹{{order.price * 0.8 | number:'1.0-0'}}</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 mb-6 text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <span class="material-icons-outlined text-[10px]">fiber_manual_record</span>
                                 <p class="truncate text-xs">{{order.pickup.address}}</p>
                             </div>
-                            <span class="material-icons-outlined text-xs opacity-30">arrow_forward</span>
-                            <div class="flex items-center gap-2" style="max-width: 240px;">
-                                <span class="material-icons-outlined text-xs">location_on</span>
-                                <p class="truncate text-xs text-gray-900 font-bold">{{order.drop.address}}</p>
+                            <div class="flex items-center gap-2">
+                                <span class="material-icons-outlined text-[10px] text-primary">location_on</span>
+                                <p class="truncate text-xs font-bold text-gray-900">{{order.drop.address}}</p>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="divider-vertical"></div>
-
-                    <div class="flex items-center gap-8">
-                        <div style="text-align: right;">
-                            <p class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Contract Value
-                            </p>
-                            <p class="pay-badge text-xl">₹{{order.price * 0.8 | number:'1.0-0'}}</p>
-                        </div>
                         <button (click)="acceptOrder(order.id)"
-                            class="btn btn-primary px-8 py-4 font-black rounded-2xl">
+                            class="btn btn-primary w-full py-3 font-black rounded-xl uppercase tracking-widest">
                             Accept Case
                         </button>
                     </div>
                 </div>
             </div>
+
+            <!-- SECTION 5: MAP PANEL (Right Column) -->
+            <div class="map-column">
+                <h2 class="text-xl font-black text-gray-900 mb-6 tracking-tight">Nearby Delivery Map</h2>
+                <div class="map-wrapper card overflow-hidden p-0 relative">
+                    <div #mapContainer id="map" style="height: 500px; width: 100%; z-index: 1;"></div>
+
+                    <div class="map-labels-overlay flex flex-col gap-2 absolute top-4 right-4 z-[1000]">
+                        <div *ngIf="isUsingRealLocation" class="gps-badge flex items-center gap-1">
+                            <span class="material-icons-outlined text-[10px] animate-pulse">gps_fixed</span>
+                            <span>GPS Active</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="map-badge">
+                                <div class="dot-mini bg-primary"></div>
+                                <span>Pickup</span>
+                            </span>
+                            <span class="map-badge">
+                                <div class="dot-mini dot-outline-map"></div>
+                                <span>Drop</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Locate Me Button -->
+                    <button (click)="$event.stopPropagation(); locateMe()"
+                        class="locate-button absolute bottom-6 right-6 z-[1000] card shadow-lg flex items-center justify-center">
+                        <span class="material-icons-outlined text-gray-700">my_location</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
     </div>

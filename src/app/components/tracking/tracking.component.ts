@@ -53,6 +53,10 @@ import * as L from 'leaflet';
                   <div class="info-group" *ngIf="order.driverName">
                     <h3 class="info-label text-xs uppercase tracking-wider">Driver</h3>
                     <p class="info-value text-lg font-medium">{{order.driverName}}</p>
+                    <p class="text-xs font-bold text-primary" *ngIf="order.driverPhone">
+                      <span class="material-icons-outlined text-[10px] align-middle">phone</span>
+                      {{order.driverPhone}}
+                    </p>
                   </div>
                 </div>
 

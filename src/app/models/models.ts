@@ -12,6 +12,7 @@ export interface Order {
     receiverPhone: string;
     driverId?: string;
     driverName?: string;
+    driverPhone?: string;
     createdAt: number;
     updatedAt: number;
 }
