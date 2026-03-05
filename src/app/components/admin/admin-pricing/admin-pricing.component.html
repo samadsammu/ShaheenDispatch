@@ -1,0 +1,51 @@
+<div class="admin-container">
+    <div class="container max-w-2xl px-6">
+
+        <header class="mb-8">
+            <h2 class="text-2xl font-black text-gray-900 tracking-tight">Pricing Configuration</h2>
+            <p class="text-xs text-gray-500 font-medium">Adjust delivery rates and base fares</p>
+        </header>
+
+        <div class="space-y-6">
+            <div *ngFor="let p of pricing" class="card shadow-md border-none overflow-hidden">
+                <div class="p-6 bg-white">
+                    <div class="flex items-center gap-5 mb-8">
+                        <div
+                            class="vehicle-icon-box bg-primary-light text-primary rounded-2xl w-14 h-14 flex items-center justify-center">
+                            <span class="material-icons-outlined text-2xl">settings_suggest</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-gray-900">{{p.vehicleType}}</h3>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Rate Settings</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md-grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-black text-gray-700">Base Fare (₹)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                                <input type="number" [(ngModel)]="p.baseFare" class="input pl-10" placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-black text-gray-700">Per KM Rate (₹)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                                <input type="number" [(ngModel)]="p.perKm" class="input pl-10" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4">
+                <button (click)="savePricing()" class="btn btn-primary w-full py-3 font-black shadow-primary">
+                    <span class="material-icons-outlined text-sm">save</span>
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

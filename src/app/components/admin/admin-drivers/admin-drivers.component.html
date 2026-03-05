@@ -1,0 +1,157 @@
+<div class="admin-container">
+    <div class="container max-w-6xl px-6">
+
+        <header class="mb-8 flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight">Driver Management</h2>
+                <p class="text-xs text-gray-500 font-medium">Manage delivery partners and fleet status</p>
+            </div>
+            <button (click)="openModal()" class="btn btn-primary btn-sm shadow-primary">
+                <span class="material-icons-outlined">add_circle</span>
+                <span>Add Partner</span>
+            </button>
+        </header>
+
+        <div class="card p-0 shadow-lg border-none overflow-hidden">
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th class="px-8">Driver Details</th>
+                            <th>Vehicle</th>
+                            <th>Performance</th>
+                            <th>Lifetime Earnings</th>
+                            <th>Status</th>
+                            <th class="px-8 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let driver of drivers" class="hover-bg-gray-50 transition-colors">
+                            <td class="px-8 py-5">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="h-12 w-12 rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400">
+                                        <span class="material-icons-outlined text-2xl">person</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-gray-900 text-base">{{driver.name}}</p>
+                                        <p class="text-xs text-gray-500 font-bold mt-0.5">{{driver.phone}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-xl w-fit">
+                                    <span class="material-icons-outlined text-xs text-gray-500">local_shipping</span>
+                                    <span
+                                        class="text-xs font-black text-gray-700 uppercase tracking-wider">{{driver.vehicleType}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-2 text-green-600">
+                                        <span class="material-icons-outlined text-xs">task_alt</span>
+                                        <span class="text-sm font-black">{{driver.stats?.completedOrders}}
+                                            Orders</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">Deliveries
+                                        Completed</p>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="font-black text-gray-900 text-lg">₹{{driver.stats?.totalEarnings |
+                                    number:'1.0-0'}}</p>
+                                <p class="text-[10px] text-primary font-black uppercase tracking-tighter">80% Commission
+                                </p>
+                            </td>
+                            <td>
+                                <span [class]="driver.active ? 'badge badge-success' : 'badge badge-danger'">
+                                    {{driver.active ? 'Active' : 'Inactive'}}
+                                </span>
+                            </td>
+                            <td class="px-8 text-right">
+                                <div class="flex justify-end gap-1.5">
+                                    <button (click)="openModal(driver)" class="btn btn-icon btn-sm" title="Edit">
+                                        <span class="material-icons-outlined text-base">edit</span>
+                                    </button>
+                                    <button (click)="toggleActive(driver)" class="btn btn-icon btn-sm"
+                                        [title]="driver.active ? 'Deactivate' : 'Activate'">
+                                        <span class="material-icons-outlined text-base">{{driver.active ? 'block' :
+                                            'check_circle'}}</span>
+                                    </button>
+                                    <button (click)="deleteDriver(driver.id)" class="btn btn-icon btn-sm"
+                                        style="color: #ef4444" title="Delete">
+                                        <span class="material-icons-outlined text-base">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Driver Modal - Refined -->
+<div *ngIf="showModal" class="modal-overlay">
+    <div class="modal card p-0 max-w-md shadow-2xl border-none overflow-hidden">
+        <div class="px-8 py-6 bg-gray-900 text-white flex justify-between items-center">
+            <h2 class="text-xl font-black tracking-tight">{{isEdit ? 'Update Partner' : 'New Fleet Entry'}}</h2>
+            <div (click)="showModal = false"
+                class="h-8 w-8 rounded-lg bg-white/10 flex items-center justify-center cursor-pointer hover:bg-white/20 transition-colors">
+                <span class="material-icons-outlined text-sm">close</span>
+            </div>
+        </div>
+
+        <form (ngSubmit)="saveDriver()" class="p-8 space-y-6">
+            <div class="space-y-2">
+                <label class="block text-sm font-black text-gray-700">Full Name</label>
+                <div class="relative">
+                    <span
+                        class="absolute left-3 top-1/2 -translate-y-1/2 material-icons-outlined text-gray-400">badge</span>
+                    <input type="text" name="name" [(ngModel)]="driverForm.name" class="input pl-10"
+                        placeholder="e.g. Rahul Sharma" required>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-black text-gray-700">Phone Number</label>
+                <div class="relative">
+                    <span
+                        class="absolute left-3 top-1/2 -translate-y-1/2 material-icons-outlined text-gray-400">phone</span>
+                    <input type="text" name="phone" [(ngModel)]="driverForm.phone" class="input pl-10"
+                        placeholder="+91 00000 00000" required>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-black text-gray-700">Assigned Vehicle</label>
+                <div class="relative">
+                    <span
+                        class="absolute left-3 top-1/2 -translate-y-1/2 material-icons-outlined text-gray-400">local_shipping</span>
+                    <select name="vehicleType" [(ngModel)]="driverForm.vehicleType" class="input pl-10">
+                        <option *ngFor="let v of vehicles" [value]="v.type">{{v.name}} ({{v.capacity}})</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl">
+                <input type="checkbox" name="active" [(ngModel)]="driverForm.active" id="activeCheckbox"
+                    class="w-5 h-5 accent-primary">
+                <label for="activeCheckbox" class="text-sm font-black text-gray-700 cursor-pointer">Set as Active
+                    Partner</label>
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <button type="button" (click)="showModal = false"
+                    class="btn btn-outline-primary flex-1 py-3 text-sm font-black">
+                    Dismiss
+                </button>
+                <button type="submit" class="btn btn-primary flex-1 py-3 text-sm font-black shadow-primary">
+                    {{isEdit ? 'Save Changes' : 'Register Now'}}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

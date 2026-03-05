@@ -1,0 +1,252 @@
+<div class="booking-container py-8">
+    <div class="container">
+        <!-- Stepper Header -->
+        <div class="stepper-header">
+            <div class="stepper-progress" [style.width.%]="(currentStep - 1) * 50"></div>
+
+            <div class="step-item" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+                <div class="step-circle">
+                    <span *ngIf="currentStep <= 1">1</span>
+                    <span *ngIf="currentStep > 1" class="material-icons-outlined">check</span>
+                </div>
+                <span class="step-label">Route</span>
+            </div>
+
+            <div class="step-item" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+                <div class="step-circle">
+                    <span *ngIf="currentStep <= 2">2</span>
+                    <span *ngIf="currentStep > 2" class="material-icons-outlined">check</span>
+                </div>
+                <span class="step-label">Details</span>
+            </div>
+
+            <div class="step-item" [class.active]="currentStep === 3">
+                <div class="step-circle">3</div>
+                <span class="step-label">Vehicle</span>
+            </div>
+        </div>
+
+        <div class="grid lg-grid-cols-3 gap-8">
+
+            <!-- Booking Form -->
+            <div class="lg-col-span-2">
+                <div class="card p-8 min-h-[500px]">
+
+                    <!-- Step 1: Route Details -->
+                    <div *ngIf="currentStep === 1" class="step-content space-y-6">
+                        <header class="mb-8">
+                            <h2 class="text-2xl font-bold text-gray-900">Where are we going?</h2>
+                            <p class="text-gray-500">Pick the start and end point for your delivery.</p>
+                        </header>
+
+                        <div class="location-inputs relative">
+                            <div class="location-line"></div>
+
+                            <div class="relative mb-6">
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Pickup Location</label>
+                                <div class="relative">
+                                    <div class="input-icon-left">
+                                        <div class="dot dot-primary"></div>
+                                    </div>
+                                    <input #pickupInput type="text" class="input pl-10"
+                                        placeholder="Enter pickup address" (input)="searchLocation($event, 'pickup')">
+
+                                    <div *ngIf="pickupResults.length > 0" class="search-results card-hover">
+                                        <div *ngFor="let res of pickupResults"
+                                            (click)="selectSearchResult(res, 'pickup')"
+                                            class="search-item clickable p-3 border-b last-border-none">
+                                            <div class="flex items-center gap-3">
+                                                <div class="icon-circle-sm bg-primary-light text-primary">
+                                                    <span class="material-icons-outlined text-sm">location_on</span>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                                        {{res.display_name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Drop Location</label>
+                                <div class="relative">
+                                    <div class="input-icon-left">
+                                        <div class="dot dot-outline"></div>
+                                    </div>
+                                    <input #dropInput type="text" class="input pl-10"
+                                        placeholder="Enter destination address"
+                                        (input)="searchLocation($event, 'drop')">
+
+                                    <div *ngIf="dropResults.length > 0" class="search-results card-hover">
+                                        <div *ngFor="let res of dropResults" (click)="selectSearchResult(res, 'drop')"
+                                            class="search-item clickable p-3 border-b last-border-none">
+                                            <div class="flex items-center gap-3">
+                                                <div class="icon-circle-sm bg-primary-light text-primary">
+                                                    <span class="material-icons-outlined text-sm">location_on</span>
+                                                </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate">
+                                                        {{res.display_name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <div></div>
+                            <button [disabled]="!pickup || !drop" (click)="nextStep()" class="btn btn-primary px-8">
+                                Contact Details <span class="material-icons-outlined ml-2">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Contact Details -->
+                    <div *ngIf="currentStep === 2" class="step-content space-y-6">
+                        <header class="mb-8">
+                            <h2 class="text-2xl font-bold text-gray-900">Contact Information</h2>
+                            <p class="text-gray-500">Provide sender and receiver details for a smooth delivery.</p>
+                        </header>
+
+                        <div class="space-y-8">
+                            <!-- Sender Information -->
+                            <section>
+                                <h3 class="section-title">
+                                    <span class="material-icons-outlined">person</span>
+                                    Sender Details
+                                </h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Full
+                                            Name</label>
+                                        <input type="text" [(ngModel)]="senderName" class="input"
+                                            placeholder="Enter sender name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Phone
+                                            Number</label>
+                                        <input type="tel" [(ngModel)]="senderPhone" class="input"
+                                            placeholder="Enter sender phone">
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Receiver Information -->
+                            <section>
+                                <h3 class="section-title">
+                                    <span class="material-icons-outlined">person_outline</span>
+                                    Receiver Details
+                                </h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Full
+                                            Name</label>
+                                        <input type="text" [(ngModel)]="receiverName" class="input"
+                                            placeholder="Enter receiver name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Phone
+                                            Number</label>
+                                        <input type="tel" [(ngModel)]="receiverPhone" class="input"
+                                            placeholder="Enter receiver phone">
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button (click)="prevStep()" class="btn btn-outline px-8">
+                                <span class="material-icons-outlined mr-2">arrow_back</span> Back
+                            </button>
+                            <button [disabled]="!senderName || !senderPhone || !receiverName || !receiverPhone"
+                                (click)="nextStep()" class="btn btn-primary px-8">
+                                Select Vehicle <span class="material-icons-outlined ml-2">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Vehicle Selection -->
+                    <div *ngIf="currentStep === 3" class="step-content space-y-6">
+                        <header class="mb-8">
+                            <h2 class="text-2xl font-bold text-gray-900">Choose Vehicle</h2>
+                            <p class="text-gray-500">Select the vehicle that best fits your cargo size.</p>
+                        </header>
+
+                        <div class="vehicle-grid">
+                            <div *ngFor="let v of vehicles" (click)="selectVehicle(v)"
+                                [class.selected]="selectedVehicle?.type === v.type" class="vehicle-card card clickable">
+                                <div class="flex items-center gap-4">
+                                    <div class="vehicle-icon-box">
+                                        <span class="material-icons-outlined">{{v.icon}}</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900">{{v.name}}</h3>
+                                        <p class="text-xs text-gray-500">{{v.capacity}}</p>
+                                    </div>
+                                </div>
+                                <div *ngIf="selectedVehicle?.type === v.type" class="check-icon">
+                                    <span class="material-icons-outlined text-primary">check_circle</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="nav-buttons">
+                            <button (click)="prevStep()" class="btn btn-outline px-8">
+                                <span class="material-icons-outlined mr-2">arrow_back</span> Back
+                            </button>
+                            <button [disabled]="!selectedVehicle || price === 0" (click)="confirmBooking()"
+                                class="btn btn-primary px-8">
+                                Confirm Booking
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="lg-col-span-1">
+                <div class="card summary-card bg-shaheen-dark text-white p-8">
+                    <h2 class="text-xl font-bold mb-6">Delivery Summary</h2>
+
+                    <div class="summary-details pb-6 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-gray-400">Total Distance</span>
+                            <span class="font-bold">{{distance | number:'1.2-2'}} km</span>
+                        </div>
+                        <div *ngIf="selectedVehicle" class="flex justify-between items-center mb-4">
+                            <span class="text-gray-400">Vehicle Type</span>
+                            <span class="font-bold">{{selectedVehicle.name}}</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xl">
+                            <span class="text-gray-400">Total Fare</span>
+                            <span class="font-bold text-primary">₹{{price | number:'1.2-2'}}</span>
+                        </div>
+                    </div>
+
+                    <div class="features-list py-6 space-y-4">
+                        <div class="feature-item flex gap-3 text-sm">
+                            <span class="material-icons-outlined text-primary text-sm">check</span>
+                            <span>Instant driver assignment</span>
+                        </div>
+                        <div class="feature-item flex gap-3 text-sm">
+                            <span class="material-icons-outlined text-primary text-sm">check</span>
+                            <span>Live tracking enabled</span>
+                        </div>
+                    </div>
+
+                    <div *ngIf="currentStep === 3" class="mt-4 p-4 rounded-lg bg-gray-800 border border-gray-700">
+                        <p class="text-xs text-gray-400 uppercase font-bold mb-2">Selected Route</p>
+                        <p class="text-sm truncate text-gray-200">{{pickup?.address}}</p>
+                        <div class="h-4 border-l-2 border-dashed border-gray-600 ml-2 my-1"></div>
+                        <p class="text-sm truncate text-gray-200">{{drop?.address}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

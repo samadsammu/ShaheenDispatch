@@ -1,0 +1,173 @@
+<div class="admin-container">
+    <div class="container max-w-6xl px-6">
+
+        <header class="mb-8 flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight">System Overview</h2>
+                <p class="text-xs text-gray-500 font-medium">Real-time metrics and recent activity</p>
+            </div>
+            <div class="flex gap-2">
+                <button (click)="factoryReset()" class="btn btn-outline-danger btn-sm">
+                    <span class="material-icons-outlined text-sm">settings_backup_restore</span>
+                    <span>Factory Reset</span>
+                </button>
+                <button class="btn btn-outline-primary btn-sm">
+                    <span class="material-icons-outlined text-sm">download</span>
+                    <span>Export</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="grid md-grid-cols-4 gap-6 mb-12">
+            <div class="card card-hover flex items-center gap-5 border-none shadow-md">
+                <div class="stat-icon bg-primary-light text-primary">
+                    <span class="material-icons-outlined text-2xl">shopping_cart</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Total Orders</p>
+                    <h3 class="text-3xl font-black text-gray-900 mt-1">{{stats.totalOrders}}</h3>
+                </div>
+            </div>
+
+            <div class="card card-hover flex items-center gap-5 border-none shadow-md">
+                <div class="stat-icon bg-blue-light text-blue">
+                    <span class="material-icons-outlined text-2xl">local_shipping</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Active Drivers</p>
+                    <h3 class="text-3xl font-black text-gray-900 mt-1">{{stats.activeDrivers}}</h3>
+                </div>
+            </div>
+
+            <div class="card card-hover flex items-center gap-5 border-none shadow-md">
+                <div class="stat-icon bg-green-light text-green">
+                    <span class="material-icons-outlined text-2xl">check_circle</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Completed</p>
+                    <h3 class="text-3xl font-black text-gray-900 mt-1">{{stats.completedDeliveries}}</h3>
+                </div>
+            </div>
+
+            <div class="card card-hover flex items-center gap-5 border-none shadow-md">
+                <div class="stat-icon bg-yellow-light text-yellow">
+                    <span class="material-icons-outlined text-2xl">payments</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Revenue</p>
+                    <h3 class="text-3xl font-black text-gray-900 mt-1">₹{{stats.totalRevenue | number:'1.0-0'}}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Management -->
+        <h3 class="text-xl font-black text-gray-900 mb-6">Quick Management</h3>
+        <div class="grid md-grid-cols-3 gap-6 mb-12">
+            <div routerLink="/admin/drivers"
+                class="card card-hover border-none shadow-md bg-white p-6 cursor-pointer group">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-12 w-12 rounded-2xl bg-gray-100 text-gray-600 flex items-center justify-center group-hover:bg-primary-light group-hover:text-primary transition-colors">
+                        <span class="material-icons-outlined">person_add</span>
+                    </div>
+                    <div>
+                        <p class="font-black text-gray-900">Manage Partners</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-0.5">Fleet List</p>
+                    </div>
+                </div>
+            </div>
+            <div routerLink="/admin/pricing"
+                class="card card-hover border-none shadow-md bg-white p-6 cursor-pointer group">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-12 w-12 rounded-2xl bg-gray-100 text-gray-600 flex items-center justify-center group-hover:bg-green-50 group-hover:text-green-600 transition-colors">
+                        <span class="material-icons-outlined">payments</span>
+                    </div>
+                    <div>
+                        <p class="font-black text-gray-900">Configure Pricing</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-0.5">Fare per KM</p>
+                    </div>
+                </div>
+            </div>
+            <div routerLink="/admin/vehicles"
+                class="card card-hover border-none shadow-md bg-white p-6 cursor-pointer group">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="h-12 w-12 rounded-2xl bg-gray-100 text-gray-600 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                        <span class="material-icons-outlined">local_shipping</span>
+                    </div>
+                    <div>
+                        <p class="font-black text-gray-900">Manage Fleet</p>
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mt-0.5">Vehicle Types</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card p-0 shadow-lg border-none overflow-hidden">
+            <div
+                class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-10">
+                <div>
+                    <h3 class="text-xl font-black text-gray-900">Recent Deliveries</h3>
+                    <p class="text-xs text-gray-400 mt-1">Showing latest 5 orders</p>
+                </div>
+                <a routerLink="/admin/orders" class="btn-link no-underline text-sm font-bold flex items-center gap-1">
+                    <span>View All Orders</span>
+                    <span class="material-icons-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th class="px-8">Order ID</th>
+                            <th>Customer Route</th>
+                            <th>Vehicle</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th class="px-8 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of recentOrders" class="hover-bg-gray-50 transition-colors">
+                            <td class="px-8 font-black text-gray-900 text-base">#{{order.id}}</td>
+                            <td>
+                                <div class="flex flex-col gap-1 py-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                                        <p class="truncate text-gray-600 text-xs max-w-[180px]">{{order.pickup.address}}
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                                        <p class="truncate text-gray-900 font-bold text-sm max-w-[180px]">
+                                            {{order.drop.address}}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full w-fit">
+                                    <span class="material-icons-outlined text-xs text-gray-500">inventory</span>
+                                    <span class="text-xs font-bold text-gray-700">{{order.vehicleType}}</span>
+                                </div>
+                            </td>
+                            <td class="font-black text-gray-900 text-base">₹{{order.price | number:'1.2-2'}}</td>
+                            <td>
+                                <span [class]="'badge ' + getStatusClass(order.status)">{{order.status}}</span>
+                            </td>
+                            <td class="px-8 text-right">
+                                <button [routerLink]="['/track', order.id]"
+                                    class="btn btn-outline-primary text-xs py-1.5 px-4 font-bold">
+                                    Track Live
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

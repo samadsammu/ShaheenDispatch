@@ -1,0 +1,217 @@
+.driver-container {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    background: radial-gradient(circle at top right, #f8fafc, #f1f5f9);
+    min-height: 100vh;
+}
+
+/* Premium Card Design */
+.card-premium {
+    background: white;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border-radius: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+.card-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+}
+
+.glass-light {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Statistics & Insights */
+.insight-card {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.insight-icon-box {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    transition: transform 0.3s;
+}
+
+.insight-card:hover .insight-icon-box {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* Active Mission Ticker */
+.active-assignment-ticker {
+    background: #0f172a;
+    color: white;
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
+    margin-top: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.5);
+}
+
+/* Unique Insight Themes */
+.insight-theme-earnings {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;
+    color: white !important;
+    border: none !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.insight-theme-earnings::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+    filter: blur(20px);
+}
+
+.insight-theme-payout {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.insight-theme-performance {
+    background: linear-gradient(135deg, #059669 0%, #065f46 100%) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.insight-card .material-icons-outlined {
+    font-size: 2rem;
+}
+
+.insight-theme-earnings .insight-icon-box {
+    background: rgba(255, 255, 255, 0.1);
+    color: #818cf8;
+}
+
+.insight-theme-payout .insight-icon-box {
+    background: rgba(255, 255, 255, 0.15);
+    color: #bae6fd;
+}
+
+.insight-theme-performance .insight-icon-box {
+    background: rgba(255, 255, 255, 0.15);
+    color: #a7f3d0;
+}
+
+.active-assignment-ticker::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--primary);
+}
+
+.status-step-line {
+    width: 2px;
+    background: repeating-linear-gradient(to bottom,
+            var(--primary) 0,
+            var(--primary) 6px,
+            transparent 6px,
+            transparent 10px);
+}
+
+.btn-update-status {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 800;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-update-status:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(229, 57, 53, 0.4);
+}
+
+.btn-update-status::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-update-status:hover::after {
+    left: 100%;
+}
+
+/* Opportunity Cards */
+.opp-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid #f1f5f9;
+}
+
+.pay-badge {
+    background: #f0fdf4;
+    color: #166534;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-weight: 900;
+    font-style: italic;
+    display: inline-block;
+}
+
+.divider-vertical {
+    width: 1px;
+    height: 2.5rem;
+    background: #e2e8f0;
+}
+
+/* Utilities for Layout */
+.leading-tight {
+    line-height: 1.25;
+}
+
+.tracking-tight {
+    letter-spacing: -0.025em;
+}
+
+@media (max-width: 768px) {
+    .opp-card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+    }
+
+    .divider-vertical {
+        display: none;
+    }
+
+    .grid-cols-12 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
