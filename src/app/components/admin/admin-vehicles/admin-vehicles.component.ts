@@ -28,7 +28,7 @@ import { Vehicle } from '../../../models/models';
               <div class="h-14 w-14 rounded-2xl bg-primary-light text-primary flex items-center justify-center">
                 <span class="material-icons-outlined text-3xl">{{v.icon}}</span>
               </div>
-              <div class="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button (click)="openModal(v)" class="btn btn-icon btn-sm h-8 w-8">
                   <span class="material-icons-outlined text-sm">edit</span>
                 </button>
@@ -84,8 +84,8 @@ import { Vehicle } from '../../../models/models';
             <input type="text" name="capacity" [(ngModel)]="form.capacity" class="input" placeholder="e.g. Up to 5kg" required>
           </div>
 
-          <div class="flex gap-4 pt-4">
-            <button type="button" (click)="showModal = false" class="btn btn-outline-primary flex-1 py-3 font-black">Cancel</button>
+          <div class="flex gap-6 pt-4">
+            <button type="button" (click)="showModal = false" class="btn btn-outline flex-1 py-3 font-black">Cancel</button>
             <button type="submit" class="btn btn-primary flex-1 py-3 font-black shadow-primary">Save Vehicle</button>
           </div>
         </form>
