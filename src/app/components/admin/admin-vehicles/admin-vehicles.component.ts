@@ -11,7 +11,7 @@ import { Vehicle } from '../../../models/models';
   template: `
     <div class="admin-container">
       <div class="container max-w-5xl px-6">
-        <header class="mb-8 flex justify-between items-center">
+        <header class="mb-8 flex flex-col sm-flex-row justify-between items-start sm-items-center gap-6">
           <div>
             <h2 class="text-2xl font-black text-gray-900 tracking-tight">Fleet Management</h2>
             <p class="text-xs text-gray-500 font-medium">Manage vehicle types and capacities</p>
@@ -22,7 +22,7 @@ import { Vehicle } from '../../../models/models';
           </button>
         </header>
 
-        <div class="grid md-grid-cols-2 lg-grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-6">
           <div *ngFor="let v of vehicles" class="card shadow-md border-none group hover:shadow-xl transition-all">
             <div class="flex justify-between items-start mb-6">
               <div class="h-14 w-14 rounded-2xl bg-primary-light text-primary flex items-center justify-center">

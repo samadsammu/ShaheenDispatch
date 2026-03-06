@@ -10,62 +10,64 @@ import * as L from 'leaflet';
   standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
-    <div class="tracking-container py-12">
-      <div class="container max-w-3xl">
-        <div *ngIf="order; else notFound" class="space-y-8">
+    <div class="tracking-container py-6 md-py-12">
+      <div class="container px-4 md-max-w-3xl">
+        <div *ngIf="order; else notFound" class="space-y-6 md-space-y-8">
           
           <div class="card tracking-card overflow-hidden">
             <div class="tracking-header bg-primary p-6 text-white text-center">
-              <h1 class="text-2xl font-bold">Tracking Order #{{order.id}}</h1>
-              <p class="opacity-80">Placed on {{order.createdAt | date:'short'}}</p>
+              <h1 class="text-xl md-text-2xl font-bold">Tracking Order #{{order.id}}</h1>
+              <p class="opacity-80 text-sm">Placed on {{order.createdAt | date:'short'}}</p>
             </div>
 
-            <div class="p-8">
+            <div class="p-4 md-p-8">
               <!-- Stepper -->
-              <div class="stepper-wrapper mb-12 relative">
-                <div class="stepper-line"></div>
-                <div class="stepper-progress transition-all duration-1000" 
-                  [style.width.%]="getProgressWidth()"></div>
-                
-                <div class="stepper-steps flex justify-between">
-                  <div *ngFor="let step of statuses; let i = index" class="step-item flex flex-col items-center">
-                    <div [class.completed]="isStepComplete(step)" 
-                         class="step-dot flex items-center justify-center text-white font-bold transition-all">
-                      <span *ngIf="isStepComplete(step)" class="material-icons-outlined text-sm">check</span>
-                      <span *ngIf="!isStepComplete(step)">{{i + 1}}</span>
+              <div class="stepper-wrapper mb-8 md-mb-12 relative overflow-x-auto pb-4 md-pb-0">
+                <div class="min-w-[500px] md-min-w-full relative">
+                  <div class="stepper-line"></div>
+                  <div class="stepper-progress transition-all duration-1000" 
+                    [style.width.%]="getProgressWidth()"></div>
+                  
+                  <div class="stepper-steps flex justify-between">
+                    <div *ngFor="let step of statuses; let i = index" class="step-item flex flex-col items-center">
+                      <div [class.completed]="isStepComplete(step)" 
+                           class="step-dot flex items-center justify-center text-white font-bold transition-all">
+                        <span *ngIf="isStepComplete(step)" class="material-icons-outlined text-sm">check</span>
+                        <span *ngIf="!isStepComplete(step)">{{i + 1}}</span>
+                      </div>
+                      <span class="step-label mt-2 text-[10px] md-text-xs font-bold text-center" 
+                            [class.active]="isStepComplete(step)">{{step}}</span>
                     </div>
-                    <span class="step-label mt-2 text-xs font-bold" 
-                          [class.active]="isStepComplete(step)">{{step}}</span>
                   </div>
                 </div>
               </div>
 
-              <div class="grid md-grid-cols-2 gap-8 mt-12">
+              <div class="grid grid-cols-1 md-grid-cols-2 gap-8 mt-8 md-mt-12">
                 <div class="space-y-4">
                   <div class="info-group">
                     <h3 class="info-label text-xs uppercase tracking-wider">Status</h3>
-                    <p class="info-value text-xl font-bold">{{order.status}}</p>
+                    <p class="info-value text-lg md-text-xl font-bold">{{order.status}}</p>
                   </div>
                   <div class="info-group">
                     <h3 class="info-label text-xs uppercase tracking-wider">Vehicle</h3>
-                    <p class="info-value text-lg font-medium">{{order.vehicleType}}</p>
+                    <p class="info-value text-base md-text-lg font-medium">{{order.vehicleType}}</p>
                   </div>
                   <div class="info-group" *ngIf="order.driverName">
                     <h3 class="info-label text-xs uppercase tracking-wider">Driver</h3>
-                    <p class="info-value text-lg font-medium">{{order.driverName}}</p>
-                    <p class="text-xs font-bold text-primary" *ngIf="order.driverPhone">
+                    <p class="info-value text-base md-text-lg font-medium">{{order.driverName}}</p>
+                    <p class="text-xs font-bold text-primary mt-1" *ngIf="order.driverPhone">
                       <span class="material-icons-outlined text-[10px] align-middle">phone</span>
                       {{order.driverPhone}}
                     </p>
                   </div>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-4 pt-4 md-pt-0 border-t md-border-t-0 border-gray-100">
                   <div class="info-group">
                     <h3 class="info-label text-xs uppercase tracking-wider">Pickup</h3>
                     <p class="info-text text-sm">{{order.pickup.address}}</p>
                   </div>
-                  <div class="info-group">
+                  <div class="info-group pt-4">
                     <h3 class="info-label text-xs uppercase tracking-wider">Drop</h3>
                     <p class="info-text text-sm">{{order.drop.address}}</p>
                   </div>
@@ -76,9 +78,9 @@ import * as L from 'leaflet';
 
           <!-- Real Leaflet Map -->
           <div class="map-wrapper card overflow-hidden">
-            <div id="map" style="height: 400px; width: 100%;"></div>
+            <div id="map" class="md-h-[400px]" style="height: 300px; width: 100%;"></div>
             
-            <div class="map-labels-overlay flex gap-2">
+            <div class="map-labels-overlay flex flex-wrap gap-2">
                 <span class="map-badge badge-pickup">
                   <div class="dot dot-mini bg-primary"></div>
                   <span>Pickup</span>
@@ -93,9 +95,9 @@ import * as L from 'leaflet';
         </div>
 
         <ng-template #notFound>
-          <div class="text-center py-20">
-             <h2 class="text-2xl font-bold text-gray-900">Order Not Found</h2>
-             <p class="text-gray-500 mt-2">We couldn't find the order ID you're looking for.</p>
+          <div class="text-center py-12 md-py-20">
+             <h2 class="text-xl md-text-2xl font-bold text-gray-900">Order Not Found</h2>
+             <p class="text-gray-500 mt-2 text-sm">We couldn't find the order ID you're looking for.</p>
              <button routerLink="/book" class="btn btn-link mt-6">Book a delivery now</button>
           </div>
         </ng-template>

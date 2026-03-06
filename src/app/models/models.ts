@@ -61,7 +61,7 @@ export const DEFAULT_PRICING: Pricing[] = [
 
 export const VEHICLES: Vehicle[] = [
     { type: 'Bike', name: 'Bike', icon: 'motorcycle', capacity: 'Small parcels' },
-    { type: 'Auto', name: 'Auto', icon: 'three_wheeler', capacity: 'Medium parcels' },
+    { type: 'Auto', name: 'Auto', icon: 'electric_rickshaw', capacity: 'Medium parcels' },
     { type: 'Mini Truck', name: 'Mini Truck', icon: 'local_shipping', capacity: 'Heavy goods' },
-    { type: 'Pickup Truck', name: 'Pickup Truck', icon: 'truck', capacity: 'Oversized goods' },
+    { type: 'Pickup Truck', name: 'Pickup Truck', icon: 'local_shipping', capacity: 'Oversized goods' },
 ];

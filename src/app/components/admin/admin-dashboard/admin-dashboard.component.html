@@ -1,7 +1,7 @@
 <div class="admin-container">
     <div class="container max-w-6xl px-6">
 
-        <header class="mb-8 flex justify-between items-center">
+        <header class="mb-8 flex flex-col sm-flex-row justify-between items-start sm-items-center gap-6">
             <div>
                 <h2 class="text-2xl font-black text-gray-900 tracking-tight">System Overview</h2>
                 <p class="text-xs text-gray-500 font-medium">Real-time metrics and recent activity</p>
@@ -19,7 +19,7 @@
         </header>
 
         <!-- Stats Grid -->
-        <div class="grid md-grid-cols-4 gap-6 mb-12">
+        <div class="grid grid-cols-1 md-grid-cols-4 gap-6 mb-12">
             <div class="card card-hover flex items-center gap-5 border-none shadow-md">
                 <div class="stat-icon bg-primary-light text-primary">
                     <span class="material-icons-outlined text-2xl">shopping_cart</span>
@@ -63,7 +63,7 @@
 
         <!-- Quick Management -->
         <h3 class="text-xl font-black text-gray-900 mb-6">Quick Management</h3>
-        <div class="grid md-grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md-grid-cols-3 gap-6 mb-12">
             <div routerLink="/admin/drivers"
                 class="card card-hover border-none shadow-md bg-white p-6 cursor-pointer group">
                 <div class="flex items-center gap-4">
@@ -108,7 +108,7 @@
         <!-- Recent Activity -->
         <div class="card p-0 shadow-lg border-none overflow-hidden">
             <div
-                class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-10">
+                class="px-8 py-6 border-b border-gray-100 flex flex-col sm-flex-row justify-between items-start sm-items-center gap-4 bg-white sticky top-0 z-10">
                 <div>
                     <h3 class="text-xl font-black text-gray-900">Recent Deliveries</h3>
                     <p class="text-xs text-gray-400 mt-1">Showing latest 5 orders</p>

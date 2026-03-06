@@ -11,6 +11,7 @@
 
 @media (min-width: 1024px) {
     .lg-grid-cols-3 {
+        display: grid;
         grid-template-columns: 2fr 1fr;
     }
 }
@@ -149,18 +150,26 @@
 }
 
 .vehicle-card .check-icon {
-    display: none;
-    /* Hide top right check, use layout-based indicators if needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Summary Sidebar */
 .summary-card {
     height: max-content;
-    position: sticky;
-    top: 2rem;
+    position: relative;
+    top: 0;
     border: none;
     background: linear-gradient(135deg, var(--gray-900) 0%, #1e293b 100%);
     box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 1024px) {
+    .summary-card {
+        position: sticky;
+        top: 2rem;
+    }
 }
 
 .summary-details {
