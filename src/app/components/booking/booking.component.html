@@ -1,10 +1,10 @@
 <div class="booking-container py-8">
     <div class="container">
 
-        <div class="grid grid-cols-1 lg-grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 gap-8" [class.lg-grid-cols-3]="currentStep === 3">
 
             <!-- Booking Form -->
-            <div class="lg-col-span-2">
+            <div [class.lg-col-span-2]="currentStep === 3" [class.lg-col-span-3]="currentStep !== 3">
                 <div class="card p-8 min-h-[500px]">
 
                     <!-- Step 1: Route Details -->
