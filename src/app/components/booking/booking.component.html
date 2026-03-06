@@ -15,14 +15,14 @@
                         </header>
 
                         <div class="location-inputs relative">
-                            <div class="location-line"></div>
+                            <!-- <div class="location-line"></div> -->
 
                             <div class="relative mb-6">
                                 <label class="block text-sm font-bold text-gray-700 mb-2">Pickup Location</label>
                                 <div class="relative">
-                                    <div class="input-icon-left">
+                                    <!-- <div class="input-icon-left">
                                         <div class="dot dot-primary"></div>
-                                    </div>
+                                    </div> -->
                                     <input #pickupInput type="text" class="input pl-10"
                                         placeholder="Enter pickup address" (input)="searchLocation($event, 'pickup')">
 
@@ -47,9 +47,9 @@
                             <div class="relative">
                                 <label class="block text-sm font-bold text-gray-700 mb-2">Drop Location</label>
                                 <div class="relative">
-                                    <div class="input-icon-left">
+                                    <!-- <div class="input-icon-left">
                                         <div class="dot dot-outline"></div>
-                                    </div>
+                                    </div> -->
                                     <input #dropInput type="text" class="input pl-10"
                                         placeholder="Enter destination address"
                                         (input)="searchLocation($event, 'drop')">

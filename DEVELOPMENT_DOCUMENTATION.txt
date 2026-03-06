@@ -1,0 +1,68 @@
+================================================================================
+SHAHEEN DISPATCH - DEVELOPMENT & TECHNICAL DOCUMENTATION
+================================================================================
+
+1. PROJECT OVERVIEW
+-------------------
+Shaheen Dispatch is a premium logistics and delivery management application built
+with Angular. It provides a seamless experience for customers to book deliveries,
+track them in real-time, and for drivers to manage assignments with live GPS 
+navigation.
+
+2. CORE MODULES & FEATURES
+--------------------------
+A. SMART BOOKING SYSTEM
+   - Multi-step Stepper UI: Replaced complex forms with a 3-step intuitive flow (Route > Details > Vehicle).
+   - Contact Management: Integrated collection of Sender and Receiver names and phone numbers.
+   - Dynamic Fare Calculation: Real-time price estimation based on road distance and vehicle type.
+   - Selected Route Summary: Provides a visual overview of pickup and drop-off points before confirmation.
+
+B. DRIVER DASHBOARD
+   - 2-Column Dashboard: High-end layout featuring balanced grids for desktop and stacked view for mobile.
+   - Real-time Assignment View: Detailed active case cards showing route details, payout, and customer contact information.
+   - Performance Insights: Visual stats for Earnings, Payouts, and Successful Trips with brand-themed accents.
+   - Empty State (Radar): Animated scanning effect when no trips are available nearby.
+
+C. LIVE TRACKING SYSTEM
+   - Real-time Status Stepper: Visual progress of orders (Pending > Assigned > Picked Up > On the Way > Delivered).
+   - Driver Contact: Direct display of driver name and phone number once assigned.
+
+3. EXTERNAL ITEMS & INTEGRATIONS
+--------------------------------
+The following external libraries, APIs, and services were implemented to enhance 
+functionality:
+
+- LEAFLET.JS: The core mapping engine used for both customer tracking and driver 
+  navigation maps.
+- OPENSTREETMAP (NOMINATIM): Powering the location search and autocomplete 
+  feature in the booking step.
+- OSRM (OPEN SOURCE ROUTING MACHINE): Used for accurate road-distance 
+  calculations and generating route geometries between coordinates.
+- GOOGLE MATERIAL ICONS: Unified icon system used throughout the app for a 
+  consistent and modern look.
+- BROWSER GEOLOCATION API: Implemented real-time "Locate Me" and GPS tracking 
+  functionality for drivers using the browser's native location services.
+
+4. UI/UX DESIGN STANDARDS
+-------------------------
+- PRIMARY BRAND COLOR: #E53935 (Shaheen Red).
+- AESTHETICS: Modern "Premium" feel using glassmorphism, soft shadows (var(--shadow-md)), 
+  and deep rounded corners (1.25rem - 1.5rem).
+- INTERACTIVE ELEMENTS:
+    - Radar pulse animations for searching.
+    - Smooth transitions between booking steps.
+    - Hover effects and micro-interactions on all cards.
+- RESPONSIVITY: Completely fluid layout that adapts from large admin screens to 
+  mobile driver handsets.
+
+5. TECHNICAL ARCHITECTURE
+--------------------------
+- FRAMEWORK: Angular (Standalone Components architecture).
+- STYLING: Vanilla CSS with a custom-built utility system for consistent spacing 
+  and shadows.
+- PERSISTENCE: StorageService implementation utilizing Browser Local Storage for 
+  session-persistent data management.
+
+================================================================================
+DOCUMENTATION COMPLETED - MARCH 2026
+================================================================================
